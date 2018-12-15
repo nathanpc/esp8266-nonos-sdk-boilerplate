@@ -11,12 +11,12 @@ SRC = main.c
 
 # Serial communication.
 PORT = /dev/ttyUSB0
-BAUDRATE = 9600
+BAUDRATE = 115200
 
 # Xtensa compiler flags.
 CC = xtensa-lx106-elf-gcc
-CFLAGS = -iquote $(SRCDIR)/ -mlongcalls -DICACHE_FLASH
-LDLIBS = -nostdlib -Wl,--start-group -lmain -lnet80211 -lwpa -llwip -lpp -lphy -lc -Wl,--end-group -lgcc
+CFLAGS = -iquote $(SRCDIR)/ -mlongcalls -std=c99 -DICACHE_FLASH
+LDLIBS = -nostdlib -Wl,--start-group -lc -lgcc -lhal -lphy -lpp -lnet80211 -llwip -lwpa -lcrypto -lmain -ljson -lupgrade -lssl -lpwm -lsmartconfig -Wl,--end-group
 LDFLAGS = -Teagle.app.v6.ld
 OBJ = $(patsubst %.c,$(OBJDIR)/%.o,$(SRC))
 
